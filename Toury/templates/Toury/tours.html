@@ -1,0 +1,31 @@
+{% extends 'Toury/base.html' %}
+{% block title %}Tours{% endblock %}
+{% block extrascripts %}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5zT8GT1qKus12TlMBWfl9Fz8jjta3W9s&sensor=true"></script>
+    <script type="text/javascript">
+      //function initialize() {
+      $(function(){
+        var mapOptions = {
+          center: new google.maps.LatLng(-34.397, 150.644),
+          zoom: 8
+        };
+        var map = new google.maps.Map(document.getElementById("map-canvas"),
+            mapOptions);
+      });
+      //google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+{% endblock %}
+{% block style %}
+<style type="text/css">
+    html { height: 100% }
+    body { height: 100%; margin: 0; padding: 0 }
+    #map-canvas { height: 400px; width: 60%;}
+</style>
+{% endblock %}
+{% block content %}
+
+        <h1>Your tours...</h1>
+        <div id="map-canvas"/>
+
+
+{% endblock %}
