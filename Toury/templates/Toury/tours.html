@@ -7,12 +7,34 @@
       $(function(){
 
         var mapOptions;
-
+        var marker = new google.maps.Marker();
+        var infowindow;
         map = new google.maps.Map(document.getElementById("map-canvas"));
-         google.maps.event.addListener(map, 'click', function(event){
+        google.maps.event.addListener(map, 'click', function(event){
             $('#lat').val(event.latLng.lat());
             $('#lng').val(event.latLng.lng());
+            if(marker != null)
+            marker.setMap(null);
+            marker = new google.maps.Marker({
+                map: map,
+                position: event.latLng,
+                title: 'New Marker'
+            });
+
+            google.maps.event.addListener(marker, 'click', function(event){
+                infowindow.open(map, marker);
+            });
+
+            infowindow = new google.maps.InfoWindow({
+                content: '<div id="content">'+
+                    '<h3 class="firstHeading" id="firstHeading">New Marker</h3>'+
+                    '</div>'+
+                    '</div>'
+            });
+            infowindow.open(map, marker);
         });
+
+
 
         if (navigator.geolocation)
         {
