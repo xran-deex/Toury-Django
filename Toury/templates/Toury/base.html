@@ -6,6 +6,16 @@
     <link href="{% static 'bootstrap-3.1.1/css/bootstrap.css' %}" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="{% static 'bootstrap-3.1.1/js/bootstrap.js' %}" ></script>
+    <script>
+        $(function(){
+            //set the active tab in the navbar
+            var href = window.location.pathname;
+            $('.nav a').each(function(){
+                if($(this).attr('href') == href)
+                    $(this).parent().attr('class', 'active');
+            });
+        });
+    </script>
     {% block extrascripts %}{% endblock %}
     {% block style %}{% endblock %}
 </head>
