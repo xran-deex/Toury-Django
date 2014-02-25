@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets, routers
-from Toury.models import Marker
+from Toury.models import Marker, Tour
 
 # ViewSets define the view behavior.
 class UserViewSet(viewsets.ModelViewSet):
@@ -12,6 +12,9 @@ class GroupViewSet(viewsets.ModelViewSet):
     model = Group
 
 class TourViewSet(viewsets.ModelViewSet):
+    model = Tour
+
+class MarkerViewSet(viewsets.ModelViewSet):
     model = Marker
 
 
@@ -20,6 +23,7 @@ router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'groups', GroupViewSet)
 router.register(r'tours', TourViewSet)
+router.register(r'markers', MarkerViewSet)
 
 admin.autodiscover()
 

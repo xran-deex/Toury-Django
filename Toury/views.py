@@ -10,6 +10,25 @@ def index(request):
 def tours(request):
     return render(request, 'Toury/tours.html', None)
 
+def tour(request, tour_id):
+    tour = models.Tour.objects.get(pk=tour_id)
+    if request.method == 'POST':
+        m = models.Marker()
+        m.tour = tour
+        m.description = request.POST['description']
+        m.direction = request.POST['direction']
+        m.latitude = request.POST['latitude']
+        m.longitude = request.POST['longitude']
+        m.radius = 5.0;
+        m.title = request.POST['title']
+        m.save()
+
+    return render(request, 'Toury/tour.html', {'tour': tour})
+
+def marker(request, marker_id):
+    marker = models.Marker.objects.get(pk=marker_id)
+    return render(request, 'Toury/marker.html', {'marker': marker})
+
 def add_marker(request):
 
     if request.method != 'POST':
@@ -48,5 +67,12 @@ class ToursViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
+    queryset = models.Tour.objects.all()
+    serializer_class = TourSerializer
+
+class MarkerViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
     queryset = models.Marker.objects.all()
-    serializer_class = ToursSerializer
+    serializer_class = MarkerSerializer

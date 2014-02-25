@@ -14,7 +14,12 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         model = Group
         fields = ('url', 'name')
 
-class ToursSerializer(serializers.HyperlinkedModelSerializer):
+class MarkerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Marker
         fields = ('id', 'title', 'latitude', 'longitude', 'description', 'direction')
+
+class TourSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.Tour
+        fields = {'name', 'markers'}

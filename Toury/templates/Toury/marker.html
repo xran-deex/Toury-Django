@@ -1,0 +1,20 @@
+{% extends 'Toury/base.html' %}
+{% block title %}Tours{% endblock %}
+{% block extrascripts %}
+{% load staticfiles %}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyC5zT8GT1qKus12TlMBWfl9Fz8jjta3W9s&sensor=true"></script>
+<script type="text/javascript" src="{% static 'my_script.js' %}"></script>
+{% endblock %}
+{% block style %}
+<style type="text/css">
+    html { height: 100% }
+    body { height: 100%; margin: 0; padding: 0 }
+    #map-canvas { margin-top: 20px; height: 400px; width: 100%;}
+</style>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h3>{{marker.title}}</h3>
+    </div>
+
+{% endblock %}
