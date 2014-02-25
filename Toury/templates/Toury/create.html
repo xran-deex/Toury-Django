@@ -14,14 +14,19 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
-            <h3>Your tours:</h3>
-            <ol>
-                {% for tour in tours %}
-                    <li><a href="{% url 'tour' tour.id %}">{{tour.name}}</a> | <a href="{% url 'delete_tour' tour.id %}">delete</a></li>
-                {% endfor %}
-            </ol>
+                <h3>Create a new Tour:</h3>
+                <form method="post" action="{% url 'new_tour' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="tourname">Tour name:</label>
+                        <input type="text" class="form-control" name="name" id="tourname" placeholder="Name">
+                      </div>
+
+                      <button id="new_tour_btn" class="btn btn-default">Submit</button>
+                </form>
             </div>
         </div>
     </div>
+
 
 {% endblock %}

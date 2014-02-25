@@ -2,8 +2,12 @@
 {% block title %}Toury{% endblock %}
 
 {% block content %}
+     <div class="jumbotron">
      <div class="container">
          <h1>Welcome to Toury</h1>
+         <p>Create tours for your Google Glass and Android device. To get started, click the button below.</p>
+         <p><a class="btn btn-primary btn-lg" role="button" href="{% url 'create' %}">Create a Tour &raquo;</a></p>
+     </div>
      </div>
 
 {% endblock %}

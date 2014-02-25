@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.context_processors import csrf
+from django.http import HttpResponse
+from django.core.urlresolvers import reverse
 from rest_framework import viewsets
 from serializers import *
 from Toury import models
@@ -8,7 +10,24 @@ def index(request):
     return render(request, 'Toury/index.html', None)
 
 def tours(request):
-    return render(request, 'Toury/tours.html', None)
+    tours = models.Tour.objects.all()
+    return render(request, 'Toury/tours.html', {'tours': tours})
+
+def new_tour(request):
+    newtour = models.Tour()
+    newtour.name = request.POST['name']
+    newtour.save()
+    return redirect('Toury.views.tour', tour_id=newtour.id)
+    #return HttpResponse('<li><a href="'+reverse(tour, args=[newtour.id])+'">'+newtour.name+'</a></li>')
+
+def delete(request, tour_id):
+    #if request.method == 'POST':
+    tour = models.Tour.objects.get(pk=tour_id)
+    tour.delete()
+    return redirect('Toury.views.tours')
+
+def create(request):
+    return render(request, 'Toury/create.html')
 
 def tour(request, tour_id):
     tour = models.Tour.objects.get(pk=tour_id)
