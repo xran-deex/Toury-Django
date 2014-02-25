@@ -27,7 +27,7 @@ def delete(request, tour_id):
     return redirect('Toury.views.tours')
 
 def create(request):
-    return render(request, 'Toury/create.html')
+    return render(request, 'Toury/create.html', None)
 
 def tour(request, tour_id):
     tour = models.Tour.objects.get(pk=tour_id)
