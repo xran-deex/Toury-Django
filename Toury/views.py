@@ -3,7 +3,8 @@ from django.core.context_processors import csrf
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from rest_framework import viewsets
-from serializers import *
+from django.core import serializers
+from serializers import MarkerSerializer, TourSerializer
 from Toury import models
 
 def index(request):
@@ -31,6 +32,11 @@ def create(request):
 
 def tour(request, tour_id):
     tour = models.Tour.objects.get(pk=tour_id)
+
+    if request.method == 'GET':
+        if 'format' in request.GET:
+                return HttpResponse(serializers.serialize('json', tour.markers.all(), use_natural_keys=True))
+
     if request.method == 'POST':
         m = models.Marker()
         m.tour = tour
@@ -67,20 +73,20 @@ def success(request):
     return render(request, 'Toury/success.html', None)
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+# class UserViewSet(viewsets.ModelViewSet):
+#     """
+#     API endpoint that allows users to be viewed or edited.
+#     """
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+#
+#
+# class GroupViewSet(viewsets.ModelViewSet):
+#     """
+#     API endpoint that allows groups to be viewed or edited.
+#     """
+#     queryset = Group.objects.all()
+#     serializer_class = GroupSerializer
 
 class ToursViewSet(viewsets.ModelViewSet):
     """

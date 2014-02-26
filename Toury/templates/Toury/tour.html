@@ -36,7 +36,7 @@
                     Direction
                 </th>
             </tr>
-            {% for marker in tour.marker_set.all %}
+            {% for marker in tour.markers.all %}
                 <tr>
                     <td>
                         <a href="{% url 'marker' marker.id %}">{{ marker.title }}</a>
