@@ -35,7 +35,7 @@ def tour(request, tour_id):
 
     if request.method == 'GET':
         if 'format' in request.GET:
-                return HttpResponse(serializers.serialize('json', tour.markers.all(), use_natural_keys=True))
+                return HttpResponse(serializers.serialize('json', tour.markers.all()))
 
     if request.method == 'POST':
         m = models.Marker()
