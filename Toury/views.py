@@ -54,6 +54,11 @@ def tour(request, tour_id):
 def marker(request, marker_id):
     m = models.Marker.objects.get(pk=marker_id)
     if request.method == 'POST':
+        if 'cancel' in request.POST:
+            return redirect('/tour/' + str(m.tour.id))
+        if 'delete' in request.POST:
+            m.delete()
+            return redirect('/tour/' + str(m.tour.id))
         m.description = request.POST['description']
         m.direction = request.POST['direction']
         m.latitude = request.POST['latitude']
