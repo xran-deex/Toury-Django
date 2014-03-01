@@ -47,12 +47,22 @@ def tour(request, tour_id):
         m.radius = 5.0;
         m.title = request.POST['title']
         m.save()
+        return redirect('/tour/' + str(tour.id))
 
     return render(request, 'Toury/tour.html', {'tour': tour})
 
 def marker(request, marker_id):
-    marker = models.Marker.objects.get(pk=marker_id)
-    return render(request, 'Toury/marker.html', {'marker': marker})
+    m = models.Marker.objects.get(pk=marker_id)
+    if request.method == 'POST':
+        m.description = request.POST['description']
+        m.direction = request.POST['direction']
+        m.latitude = request.POST['latitude']
+        m.longitude = request.POST['longitude']
+        m.radius = request.POST['radius'];
+        m.title = request.POST['title']
+        m.save()
+        return redirect('/tour/' + str(m.tour.id))
+    return render(request, 'Toury/marker.html', {'marker': m})
 
 def add_marker(request):
 
