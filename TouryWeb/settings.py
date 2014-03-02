@@ -53,6 +53,9 @@ ROOT_URLCONF = 'TouryWeb.urls'
 
 WSGI_APPLICATION = 'TouryWeb.wsgi.application'
 
+TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.messages.context_processors.messages",
+    'django.contrib.auth.context_processors.auth',)
+
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
