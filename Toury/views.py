@@ -44,9 +44,11 @@ def tour(request, tour_id):
         m.tour = tour
         m.description = request.POST['description']
         m.direction = request.POST['direction']
-        m.latitude = request.POST['latitude']
-        m.longitude = request.POST['longitude']
-        m.radius = 5.0;
+        m.trigger_latitude = request.POST['trigger_latitude']
+        m.trigger_longitude = request.POST['trigger_longitude']
+        m.marker_latitude = request.POST['marker_latitude']
+        m.marker_longitude = request.POST['marker_longitude']
+        m.radius = 15.0;
         m.title = request.POST['title']
         m.save()
         return redirect('/tour/' + str(tour.id))
@@ -63,9 +65,11 @@ def marker(request, marker_id):
             return redirect('/tour/' + str(m.tour.id))
         m.description = request.POST['description']
         m.direction = request.POST['direction']
-        m.latitude = request.POST['latitude']
-        m.longitude = request.POST['longitude']
-        m.radius = request.POST['radius']
+        m.trigger_latitude = request.POST['trigger_latitude']
+        m.trigger_longitude = request.POST['trigger_longitude']
+        m.marker_latitude = request.POST['marker_latitude']
+        m.marker_longitude = request.POST['marker_longitude']
+        m.radius = 15.0;
         m.title = request.POST['title']
         m.save()
         return redirect('/tour/' + str(m.tour.id))

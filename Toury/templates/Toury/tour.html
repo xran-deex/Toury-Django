@@ -4,6 +4,32 @@
 {% load staticfiles %}
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyC5zT8GT1qKus12TlMBWfl9Fz8jjta3W9s&sensor=true"></script>
 <script type="text/javascript" src="{% static 'my_script.js' %}"></script>
+<script>
+$(function(){
+    //populate map with markers from tour
+    var markerList = []
+    {% for marker in tour.markers.all %}
+        markerList.push({title: '{{marker.title}}', lat: {{marker.trigger_latitude}}, lng: {{marker.trigger_longitude}} });
+        console.log('{{marker.title}}');
+    {% endfor %}
+    for(var i = 0; i < markerList.length; i++){
+        console.log(markerList[i]);
+        marker = new google.maps.Marker({
+                map: map,
+                position: new google.maps.LatLng(markerList[i].lat, markerList[i].lng),
+                title: markerList[i].title,
+                draggable: true
+            });
+        console.log(window.map);
+        infowindow = new google.maps.InfoWindow({
+                content: '<div id="content"><h5>'+ markerList[i].title +'</h5></div>',
+                enableEventPropoagation: true
+         });
+
+         infowindow.open(map, marker);
+    }
+});
+</script>
 {% endblock %}
 {% block style %}
 <style type="text/css">
@@ -32,12 +58,20 @@
                         <textarea rows="10" cols="80" class="form-control" id="description" name='description' placeholder="Description"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="lat">Latitude:</label>
-                        <input type="text" class="form-control" id="lat" name="latitude" placeholder="">
+                        <label for="lat">Trigger Latitude:</label>
+                        <input type="text" class="form-control" id="lat" name="trigger_latitude" placeholder="" value="{{marker.trigger_latitude}}">
                     </div>
                     <div class="form-group">
-                        <label for="lng">Longitude:</label>
-                        <input type="text" class="form-control" id="lng" name="longitude" placeholder="">
+                        <label for="lng">Trigger Longitude:</label>
+                        <input type="text" class="form-control" id="lng" name="trigger_longitude" placeholder="" value="{{marker.trigger_longitude}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="mark_lat">Marker Latitude:</label>
+                        <input type="text" class="form-control" id="mark_lat" name="marker_latitude" placeholder="" value="{{marker.marker_latitude}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="mark_lng">Marker Longitude:</label>
+                        <input type="text" class="form-control" id="mark_lng" name="marker_longitude" placeholder="" value="{{marker.marker_longitude}}">
                     </div>
                     <div class="form-group">
                         <label for="direction">Direction:</label>
@@ -70,6 +104,7 @@
                     Direction
                 </th>
             </tr>
+
             {% for marker in tour.markers.all %}
                 <tr>
                     <td>
@@ -79,10 +114,10 @@
                         {{ marker.description }}
                     </td>
                     <td>
-                        {{marker.latitude}}
+                        {{marker.trigger_latitude}}
                     </td>
                     <td>
-                        {{marker.longitude}}
+                        {{marker.trigger_longitude}}
                     </td>
                     <td>
                         {{marker.radius}}
