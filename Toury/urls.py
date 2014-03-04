@@ -11,6 +11,6 @@ urlpatterns = patterns('',
     url(r'^tour/create', views.create, name='create'),
     url(r'^tour/new/', views.new_tour, name='new_tour'),
     url(r'^tour/(?P<tour_id>\d+)/$', views.tour, name='tour'),
-    url(r'^add', views.add_marker, name='add_marker'),
+    # url(r'^add', views.add_marker, name='add_marker'),
     url(r'^success', views.success),
 )

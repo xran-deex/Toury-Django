@@ -69,26 +69,26 @@ def marker(request, marker_id):
         m.trigger_longitude = request.POST['trigger_longitude']
         m.marker_latitude = request.POST['marker_latitude']
         m.marker_longitude = request.POST['marker_longitude']
-        m.radius = 15.0;
+        m.radius = request.POST['radius']
         m.title = request.POST['title']
         m.save()
         return redirect('/tour/' + str(m.tour.id))
     return render(request, 'Toury/marker.html', {'marker': m})
 
-def add_marker(request):
-
-    if request.method != 'POST':
-        return
-    else:
-        m = models.Marker()
-        m.description = request.POST['description']
-        m.direction = 0.0
-        m.latitude = request.POST['latitude']
-        m.longitude = request.POST['longitude']
-        m.radius = 5.0;
-        m.title = request.POST['title']
-        m.save()
-        return redirect('/success')
+# def add_marker(request):
+#
+#     if request.method != 'POST':
+#         return
+#     else:
+#         m = models.Marker()
+#         m.description = request.POST['description']
+#         m.direction = 0.0
+#         m.latitude = request.POST['latitude']
+#         m.longitude = request.POST['longitude']
+#         m.radius = 5.0;
+#         m.title = request.POST['title']
+#         m.save()
+#         return redirect('/success')
 
 def success(request):
     return render(request, 'Toury/success.html', None)
