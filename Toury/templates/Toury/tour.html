@@ -5,11 +5,22 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyC5zT8GT1qKus12TlMBWfl9Fz8jjta3W9s&sensor=true"></script>
 <script type="text/javascript" src="{% static 'my_script.js' %}"></script>
 <script>
+function getCircle(magnitude) {
+  return {
+    path: google.maps.SymbolPath.CIRCLE,
+    fillColor: 'red',
+    fillOpacity: .2,
+    scale: magnitude,
+    strokeColor: 'white',
+    strokeWeight: .5
+  };
+}
+
 $(function(){
     //populate map with markers from tour
     var markerList = []
     {% for marker in tour.markers.all %}
-        markerList.push({title: '{{marker.title}}', lat: {{marker.trigger_latitude}}, lng: {{marker.trigger_longitude}} });
+        markerList.push({title: '{{marker.title}}', lat: {{marker.trigger_latitude}}, lng: {{marker.trigger_longitude}}, radius: {{marker.radius}} });
         console.log('{{marker.title}}');
     {% endfor %}
     for(var i = 0; i < markerList.length; i++){
@@ -18,9 +29,9 @@ $(function(){
                 map: map,
                 position: new google.maps.LatLng(markerList[i].lat, markerList[i].lng),
                 title: markerList[i].title,
+                icon: getCircle(markerList[i].radius),
                 draggable: true
             });
-        console.log(window.map);
         infowindow = new google.maps.InfoWindow({
                 content: '<div id="content"><h5>'+ markerList[i].title +'</h5></div>',
                 enableEventPropoagation: true
@@ -76,6 +87,10 @@ $(function(){
                     <div class="form-group">
                         <label for="direction">Direction:</label>
                         <input type="text" class="form-control" id="direction" name="direction" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="radius">Radius:</label>
+                        <input type="text" class="form-control" id="radius" name="radius" placeholder="">
                     </div>
                   <button type="submit" class="btn btn-default">Submit</button>
                 </form>
