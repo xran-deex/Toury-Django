@@ -48,7 +48,7 @@ def tour(request, tour_id):
         m.trigger_longitude = request.POST['trigger_longitude']
         m.marker_latitude = request.POST['marker_latitude']
         m.marker_longitude = request.POST['marker_longitude']
-        m.radius = 15.0;
+        m.radius = request.POST['radius']
         m.title = request.POST['title']
         m.save()
         return redirect('/tour/' + str(tour.id))

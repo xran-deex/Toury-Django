@@ -2,6 +2,7 @@
 {% block title %}Tours{% endblock %}
 {% block extrascripts %}
 {% load staticfiles %}
+<script type="text/javascript" src="{% static 'util.js' %}"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyC5zT8GT1qKus12TlMBWfl9Fz8jjta3W9s&sensor=true"></script>
 <script type="text/javascript" src="{% static 'my_script.js' %}"></script>
 <script>
@@ -20,27 +21,94 @@ $(function(){
     //populate map with markers from tour
     var markerList = []
     {% for marker in tour.markers.all %}
-        markerList.push({title: '{{marker.title}}', lat: {{marker.trigger_latitude}}, lng: {{marker.trigger_longitude}}, radius: {{marker.radius}} });
-        console.log('{{marker.title}}');
+        var mark = {title: '{{marker.title}}',
+                lat: {{marker.trigger_latitude}},
+                lng: {{marker.trigger_longitude}},
+                radius: {{marker.radius}},
+                marker_lat: {{marker.marker_latitude}},
+                marker_lng: {{marker.marker_longitude}},
+                description: '{{marker.description}}'};
+        markerList.push(mark);
     {% endfor %}
+    //console.log(dict);
     for(var i = 0; i < markerList.length; i++){
         console.log(markerList[i]);
-        marker = new google.maps.Marker({
+        touryMarker = new TouryMarker();
+        touryMarker.title = markerList[i].title;
+        touryMarker.description = markerList[i].description;
+        touryMarker.marker = new google.maps.Marker({
                 map: map,
                 position: new google.maps.LatLng(markerList[i].lat, markerList[i].lng),
                 title: markerList[i].title,
                 icon: getCircle(markerList[i].radius),
                 draggable: true
             });
-        infowindow = new google.maps.InfoWindow({
+        google.maps.event.addListener(touryMarker.marker, 'click', function(event){
+
+                touryMarker = dict.getVal(event.latLng.lat());
+                console.log(touryMarker);
+                $('#marker').val(touryMarker.title);
+                $('#description').val(touryMarker.description);
+                if(!infowindowvisible){
+                    touryMarker.infowindow.open(map, touryMarker.marker);
+                    infowindowvisible = true;
+                }
+            });
+        touryMarker.infowindow = new google.maps.InfoWindow({
                 content: '<div id="content"><h5>'+ markerList[i].title +'</h5></div>',
                 enableEventPropoagation: true
          });
 
-         infowindow.open(map, marker);
+        touryMarker.flightPath = new google.maps.Polyline({
+                path: [new google.maps.LatLng(markerList[i].marker_lat, markerList[i].marker_lng),new google.maps.LatLng(markerList[i].lat, markerList[i].lng)],
+                geodesic: true,
+                strokeColor: '#FF0000',
+                strokeOpacity: 1.0,
+                strokeWeight: 2,
+                editable: true,
+            });
+            google.maps.event.addListener(touryMarker.flightPath, 'click', function(event){
+                touryMarker.flightPath.setMap(null);
+                touryMarker.flightPath = null;
+                $('#direction').val('');
+                $('#mark_lat').val('');
+                $('#mark_lng').val('');
+                state = valis.StateEnum.FIRST_MARKER_ADDED;
+                return;
+            });
+        google.maps.event.addListener(touryMarker.infowindow, 'closeclick', function(event){
+                infowindowvisible = false;
+            });
+        google.maps.event.addListener(touryMarker.marker, 'dragstart', function(event){
+                dict.remove(event.latLng.lat());
+        });
+            google.maps.event.addListener(touryMarker.marker, 'dragend', function(event){
+                dict.put(event.latLng.lat(), touryMarker);
+                $('#marker').val(touryMarker.title);
+                $('#description').val(touryMarker.description);
+                $('#lat').val(event.latLng.lat());
+                $('#lng').val(event.latLng.lng());
+
+                touryMarker.infowindow.setMap(null);
+                touryMarker.infowindow = new google.maps.InfoWindow({
+                    content: '<div id="content"><h5>'+ $('#marker').val() + '</h5></div>',
+                    enableEventPropoagation: true
+                });
+                if($('#marker').val() != '')
+                    touryMarker.infowindow.open(map, touryMarker.marker);
+                if(touryMarker.flightPath != null){
+                    var oldpath = touryMarker.flightPath.getPath();
+                    touryMarker.flightPath.setPath([oldpath.getAt(0), event.latLng]);
+                }
+            });
+         touryMarker.flightPath.setMap(map);
+
+        dict.put(markerList[i].lat, touryMarker);
+        touryMarker.infowindow.open(map, touryMarker.marker);
     }
 });
 </script>
+
 {% endblock %}
 {% block style %}
 <style type="text/css">
@@ -56,7 +124,9 @@ $(function(){
         <div class="row">
             <div class="col-md-7">
                 <div id="map-canvas"></div>
+                <h5 id="instructions"></h5>
             </div>
+
             <div class="col-md-4">
                 <form role="form" action="{% url 'tour' tour.id %}" method="post">
                     {% csrf_token %}
