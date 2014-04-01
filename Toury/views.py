@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core.context_processors import csrf
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from rest_framework import viewsets
@@ -32,6 +33,7 @@ def delete(request, tour_id):
 def create(request):
     return render(request, 'Toury/create.html', None)
 
+@csrf_exempt
 def tour(request, tour_id):
     tour = models.Tour.objects.get(pk=tour_id)
 
@@ -43,7 +45,7 @@ def tour(request, tour_id):
         m = models.Marker()
         m.tour = tour
         m.description = request.POST['description']
-        m.direction = request.POST['direction']
+        # m.direction = request.POST['direction']
         m.trigger_latitude = request.POST['trigger_latitude']
         m.trigger_longitude = request.POST['trigger_longitude']
         m.marker_latitude = request.POST['marker_latitude']
@@ -55,18 +57,22 @@ def tour(request, tour_id):
 
     return render(request, 'Toury/tour.html', {'tour': tour})
 
+@csrf_exempt
 def marker(request, marker_id):
     m = models.Marker.objects.get(pk=marker_id)
+    # print m
     if request.method == 'POST':
+        print request.POST
         if 'cancel' in request.POST:
             return redirect('/tour/' + str(m.tour.id))
         if 'delete' in request.POST:
             m.delete()
             return redirect('/tour/' + str(m.tour.id))
         m.description = request.POST['description']
-        m.direction = request.POST['direction']
+        # m.direction = request.POST['direction']
         m.trigger_latitude = request.POST['trigger_latitude']
         m.trigger_longitude = request.POST['trigger_longitude']
+        # if not request.POST['ajax']:
         m.marker_latitude = request.POST['marker_latitude']
         m.marker_longitude = request.POST['marker_longitude']
         m.radius = request.POST['radius']
