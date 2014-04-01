@@ -20,7 +20,7 @@
             <ol>
                 {% for tour in tours %}
                     <li><a href="{% url 'tour' tour.id %}">{{tour.name}}</a>
-                        <a href="{% url 'delete_tour' tour.id %}" class="delete"><button type="button" class="close delete" aria="hidden">&times;</button></a></li>
+                        <!--<a href="{% url 'delete_tour' tour.id %}" class="delete"><button type="button" class="close delete" aria="hidden">&times;</button></a></li>-->
                 {% endfor %}
             </ol>
             </div>
@@ -38,14 +38,5 @@
             </div>
         </div>
     </div>
-    <script>
-        $('.delete').click(function(e){
-            var result = confirm("Are you sure you want to delete this Tour?");
-            if ( result == true ){
-                return true;
-            } else {
-                return false;
-            }
-        });
-    </script>
+
 {% endblock %}
