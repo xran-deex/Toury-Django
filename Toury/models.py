@@ -16,7 +16,7 @@ class Marker(models.Model):
     marker_longitude = models.DecimalField(decimal_places=17, max_digits=20)
     radius = models.DecimalField(decimal_places=15, max_digits=20)
     title = models.CharField(max_length=50)
-    direction = models.DecimalField(decimal_places=10, max_digits=15, null=True)
+    # direction = models.DecimalField(decimal_places=10, max_digits=15, null=True)
     description = models.TextField()
     tour = models.ForeignKey(Tour, related_name='markers')
 
