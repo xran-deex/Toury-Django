@@ -14,6 +14,9 @@ def index(request):
 
 def tours(request):
     tours = models.Tour.objects.all()
+    if request.method == 'GET':
+        if 'format' in request.GET:
+                return HttpResponse(serializers.serialize('json', tours))
     return render(request, 'Toury/tours.html', {'tours': tours})
 
 def new_tour(request):
