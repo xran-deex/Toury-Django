@@ -45,7 +45,6 @@ def tour(request, tour_id):
         m = models.Marker()
         m.tour = tour
         m.description = request.POST['description']
-        # m.direction = request.POST['direction']
         m.trigger_latitude = request.POST['trigger_latitude']
         m.trigger_longitude = request.POST['trigger_longitude']
         m.marker_latitude = request.POST['marker_latitude']
