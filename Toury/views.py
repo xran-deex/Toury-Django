@@ -54,6 +54,7 @@ def tour(request, tour_id):
         m.marker_longitude = request.POST['marker_longitude']
         m.radius = request.POST['radius']
         m.title = request.POST['title']
+        m.order = request.POST['order']
         m.save()
         return redirect('/tour/' + str(tour.id))
 
@@ -79,6 +80,7 @@ def marker(request, marker_id):
         m.marker_longitude = request.POST['marker_longitude']
         m.radius = request.POST['radius']
         m.title = request.POST['title']
+        m.order = request.POST['order']
         m.save()
         return redirect('/tour/' + str(m.tour.id))
     return render(request, 'Toury/marker.html', {'marker': m})
@@ -101,16 +103,16 @@ def marker(request, marker_id):
 def success(request):
     return render(request, 'Toury/success.html', None)
 
-class ToursViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = models.Tour.objects.all()
-    serializer_class = TourSerializer
-
-class MarkerViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = models.Marker.objects.all()
-    serializer_class = MarkerSerializer
+# class ToursViewSet(viewsets.ModelViewSet):
+#     """
+#     API endpoint that allows groups to be viewed or edited.
+#     """
+#     queryset = models.Tour.objects.all()
+#     serializer_class = TourSerializer
+#
+# class MarkerViewSet(viewsets.ModelViewSet):
+#     """
+#     API endpoint that allows groups to be viewed or edited.
+#     """
+#     queryset = models.Marker.objects.all()
+#     serializer_class = MarkerSerializer

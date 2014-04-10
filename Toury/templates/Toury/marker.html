@@ -45,12 +45,12 @@
                 <input type="text" class="form-control" id="mark_lng" name="marker_longitude" placeholder="" value="{{marker.marker_longitude}}">
             </div>
             <div class="form-group">
-                <label for="direction">Direction:</label>
-                <input type="text" class="form-control" id="direction" name="direction" placeholder="" value="{{marker.direction}}">
-            </div>
-            <div class="form-group">
                 <label for="radius">Radius:</label>
                 <input type="text" class="form-control" id="radius" name="radius" placeholder="" value="{{marker.radius}}">
+            </div>
+                <div class="form-group">
+                <label for="radius">Order:</label>
+                <input type="number" class="form-control" id="order" name="order" value="{{marker.order}}">
             </div>
           <button type="submit" class="btn btn-info">Update</button>
           <button type="submit" class="btn btn-danger" value="delete" name="delete">Delete</button>

@@ -18,6 +18,7 @@ class Marker(models.Model):
     title = models.CharField(max_length=50)
     # direction = models.DecimalField(decimal_places=10, max_digits=15, null=True)
     description = models.TextField()
+    order = models.IntegerField()
     tour = models.ForeignKey(Tour, related_name='markers')
 
     def __unicode__(self):

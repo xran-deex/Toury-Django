@@ -91,6 +91,10 @@ $(function(){
                         <label for="description">Description:</label>
                         <textarea rows="10" cols="80" class="form-control" id="description" name='description' placeholder="Description"></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="marker">Ordering (1 - 100):</label>
+                        <input type="number" class="form-control" id="order" name="order" >
+                    </div>
                     <!--<div class="form-group">-->
                         <!--<label for="lat">Trigger Latitude:</label>-->
                         <input type="hidden" class="form-control" id="lat" name="trigger_latitude" placeholder="" value="{{marker.trigger_latitude}}">
