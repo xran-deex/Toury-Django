@@ -17,6 +17,7 @@ $(function(){
                 marker_lat: {{marker.marker_latitude}},
                 marker_lng: {{marker.marker_longitude}},
                 description: '{{marker.description}}',
+                order: {{marker.order}},
                 id: {{marker.id}}};
         markerList.push(mark);
     {% endfor %}
@@ -36,6 +37,7 @@ $(function(){
                         marker_latitude: dict.getVal(dict.Keys[marker]).flightPath.getPath().getAt(0).lat(),
                         marker_longitude: dict.getVal(dict.Keys[marker]).flightPath.getPath().getAt(0).lng(),
                         radius: 15,
+                        order: dict.getVal(dict.Keys[marker]).order,
                         ajax: true
                  },
                 //success: function(msg){ window.location.href = window.location.href; }
@@ -51,6 +53,7 @@ $(function(){
                         marker_latitude: dict.getVal(dict.Keys[marker]).flightPath.getPath().getAt(0).lat(),
                         marker_longitude: dict.getVal(dict.Keys[marker]).flightPath.getPath().getAt(0).lng(),
                         radius: dict.getVal(dict.Keys[marker]).radius,
+                        order: dict.getVal(dict.Keys[marker]).order,
                         ajax: true
                  },
                 //success: function(msg){ window.location.href = window.location.href; }
