@@ -1,6 +1,6 @@
 {% extends 'Toury/base.html' %}
 {% block title %}Toury{% endblock %}
-
+{% load staticfiles %}
 {% block content %}
      <div class="jumbotron">
      <div class="container">
@@ -20,41 +20,56 @@
 
       <hr class="featurette-divider">
 
-      <div class="row featurette">
+        <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          <h2 class="featurette-heading">Location Aware <span class="text-muted">Hands-free</span></h2>
+          <p class="lead">As you walk around a specified location (a campus or an entire city), Glass will inform you
+          of important information regarding the location you are currently standing in. As you look at the item of interest,
+          Glass will show you more information as well as speek that information to you.</p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+          <!--<img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">-->
+            <video class="img-responsive" controls>
+                <source src="{% static 'toury_demo_no_sound.mp4' %}">
+            </video>
         </div>
       </div>
+
+
 
       <hr class="featurette-divider">
 
       <div class="row featurette">
         <div class="col-md-5">
-          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+          <!--<img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">-->
+            <video class="img-responsive" controls>
+                <source src="{% static 'toury_demo_no_sound.mp4' %}">
+            </video>
         </div>
         <div class="col-md-7">
-          <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          <h2 class="featurette-heading">Google Glass App <span class="text-muted">See for yourself.</span></h2>
+          <p class="lead">Choose between a guided tour or a self guided tour. Search for destinations using only your voice. As
+          you move your head around, markers will indicate the location of a point of interest. As you move closer to the destination,
+          you will be told important information regarding that destination. </p>
         </div>
       </div>
 
       <hr class="featurette-divider">
+
+        <hr class="featurette-divider">
+
 
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          <h2 class="featurette-heading">Create Tours <span class="text-muted">Self-guided tours</span></h2>
+          <p class="lead">Create a tour through this web application and allow users to explore your campus using the Google Glass app.</p><p class="lead">
+           Choose points of interest around a campus or city. Just click on the map and enter the information that you want your user to
+          see/hear as they walk in the location.</p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+          <img class="featurette-image img-responsive" src="{% static 'screenshot1.png' %}" alt="Web App">
         </div>
       </div>
-
-      <hr class="featurette-divider">
 
       <!-- /END THE FEATURETTES -->
 
@@ -62,7 +77,7 @@
       <!-- FOOTER -->
       <footer>
         <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2014 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        <p>&copy; 2014 Towson University &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
       </footer>
 
     </div><!-- /.container -->
