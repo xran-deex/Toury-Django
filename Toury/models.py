@@ -22,7 +22,7 @@ class Marker(models.Model):
     tour = models.ForeignKey(Tour, related_name='markers')
 
     def __unicode__(self):
-        return "Lat: " + str(self.latitude) + "\n" + "Long: " + str(self.longitude) + "\n" + self.description
+        return self.title + "\n" + self.description
 
     def natural_key(self):
         return (self.title,self.description)
