@@ -2,8 +2,7 @@
 {% block title %}Tours{% endblock %}
 {% block extrascripts %}
 {% load staticfiles %}
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyC5zT8GT1qKus12TlMBWfl9Fz8jjta3W9s&sensor=true"></script>
-<script type="text/javascript" src="{% static 'my_script.js' %}"></script>
+<script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=AIzaSyC5zT8GT1qKus12TlMBWfl9Fz8jjta3W9s&sensor=true'></script>
 {% endblock %}
 {% block style %}
 <style type="text/css">
@@ -57,7 +56,6 @@
           <button type="submit" class="btn btn-default" value="cancel" name="cancel">Cancel</button>
           </div>
         </form>
-
 </div>
 
 {% endblock %}
